@@ -1,0 +1,496 @@
+/**
+ * App.css - 全局样式文件
+ * 
+ * CSS 知识点：
+ * - CSS 变量: 使用 :root 定义全局变量，方便主题统一修改
+ * - Flexbox: 现代布局方案，处理水平和垂直居中
+ * - CSS 动画: @keyframes 定义动画，animation 属性使用
+ * - 伪元素: ::before/::after 创建装饰性元素
+ */
+
+/* ==================== CSS 变量定义 ==================== */
+/**
+ * :root 选择器匹配文档根元素
+ * 在这里定义整个网站的主题颜色、字体等全局变量
+ * 修改这些值可以一键切换主题
+ */
+:root {
+  /* 主色调 - 科技蓝 */
+  --primary-color: #00d4ff;
+  --primary-dark: #0099cc;
+  --primary-light: #66e5ff;
+  
+  /* 背景色 - 深色科技风 */
+  --bg-primary: #0a0e17;
+  --bg-secondary: #111827;
+  --bg-card: #1a2332;
+  
+  /* 文字颜色 */
+  --text-primary: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  
+  /* 强调色 */
+  --accent-cyan: #00ffff;
+  --accent-green: #00ff88;
+  --accent-purple: #a855f7;
+  
+  /* 边框和分隔 */
+  --border-color: #2d3748;
+  --glow-color: rgba(0, 212, 255, 0.5);
+  
+  /* 字体 */
+  --font-main: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'Courier New', monospace;
+}
+
+/* ==================== 全局重置 ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ==================== 布局容器 ==================== */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  width: 100%;
+}
+
+/* ==================== 导航栏 ==================== */
+.navbar {
+  background: linear-gradient(180deg, var(--bg-secondary) 0%, transparent 100%);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.logo-icon {
+  font-size: 1.8rem;
+  animation: pulse 2s infinite;
+}
+
+.logo-text {
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+}
+
+.nav-links a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/**
+ * hover 状态下的科技感光效
+ * 使用 box-shadow 创建发光效果
+ */
+.nav-links a:hover {
+  color: var(--primary-color);
+  background: rgba(0, 212, 255, 0.1);
+  box-shadow: 0 0 20px var(--glow-color);
+}
+
+/**
+ * active 状态 - 当前选中的导航项
+ * 使用 ::before 创建底部发光条
+ */
+.nav-links a.active {
+  color: var(--primary-color);
+  background: rgba(0, 212, 255, 0.15);
+}
+
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  background: var(--primary-color);
+  box-shadow: 0 0 10px var(--primary-color);
+}
+
+.nav-icon {
+  font-size: 1.2rem;
+}
+
+/* ==================== 首页 ==================== */
+.home-page {
+  padding: 2rem 0;
+}
+
+/**
+ * 英雄区域 - 页面上方的大标题区域
+ * 使用 Flexbox 垂直水平居中
+ */
+.hero {
+  text-align: center;
+  padding: 4rem 0;
+  position: relative;
+}
+
+/**
+ * 装饰性背景 - 使用伪元素创建科技感背景
+ */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
+  opacity: 0.3;
+  z-index: -1;
+}
+
+.hero-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid var(--primary-color);
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  box-shadow: 0 0 30px var(--glow-color);
+  animation: glow 3s ease-in-out infinite;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, var(--text-primary), var(--primary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.hero-description {
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  font-size: 1.1rem;
+}
+
+/* 标签容器 */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+
+.tag {
+  padding: 0.5rem 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.tag:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  box-shadow: 0 0 15px var(--glow-color);
+}
+
+/* ==================== 卡片网格 ==================== */
+.section {
+  margin: 4rem 0;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-title::before {
+  content: '▶';
+  color: var(--primary-color);
+  font-size: 1rem;
+}
+
+/**
+ * 卡片网格布局
+ * 使用 CSS Grid 实现响应式网格
+ * grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))
+ * - auto-fit: 自动填充尽可能多的列
+ * - minmax(300px, 1fr): 每列最小300px，最大等分剩余空间
+ */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+}
+
+.card h3 {
+  color: var(--primary-color);
+  margin-bottom: 0.8rem;
+}
+
+.card p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+/* ==================== 学习笔记页面 ==================== */
+.notes-page {
+  padding: 2rem 0;
+}
+
+.notes-page h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.note-category {
+  margin-bottom: 2rem;
+}
+
+.note-category h2 {
+  font-size: 1.3rem;
+  color: var(--accent-cyan);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.note-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.note-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.note-item:hover {
+  border-color: var(--primary-color);
+  background: rgba(0, 212, 255, 0.05);
+}
+
+.note-item h3 {
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.note-item p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.note-item .note-date {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+/* ==================== 开源链接页面 ==================== */
+.links-page {
+  padding: 2rem 0;
+}
+
+.links-page h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.link-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.link-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+.link-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-green);
+  box-shadow: 0 5px 20px rgba(0, 255, 136, 0.2);
+}
+
+.link-card h3 {
+  color: var(--accent-green);
+  margin-bottom: 0.5rem;
+}
+
+.link-card p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.link-card .link-url {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin-top: 0.8rem;
+  font-family: var(--font-mono);
+}
+
+/* ==================== 页脚 ==================== */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.footer-tech {
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  color: var(--primary-color);
+}
+
+/* ==================== 动画 ==================== */
+/**
+ * pulse 动画 - 呼吸效果
+ * 用于 Logo 图标，产生忽明忽暗的效果
+ */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/**
+ * glow 动画 - 发光效果
+ * 用于头像周围的光晕
+ */
+@keyframes glow {
+  0%, 100% { 
+    box-shadow: 0 0 30px var(--glow-color);
+  }
+  50% { 
+    box-shadow: 0 0 50px var(--glow-color), 0 0 80px var(--glow-color);
+  }
+}
+
+/* ==================== 响应式 ==================== */
+/**
+ * 媒体查询 - 移动端适配
+ * 当屏幕宽度小于 768px 时应用以下样式
+ */
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .hero h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .main-content {
+    padding: 1rem;
+  }
+}

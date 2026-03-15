@@ -1,0 +1,37 @@
+/**
+ * Home.css - 首页样式
+ */
+
+.about-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.about-content p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  line-height: 1.8;
+}
+
+.about-content p:last-child {
+  margin-bottom: 0;
+}
+
+.contact-info {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.contact-info p {
+  color: var(--text-secondary);
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.contact-info p:first-child {
+  margin-bottom: 0.5rem;
+}
